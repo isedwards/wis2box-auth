@@ -55,4 +55,5 @@ exec gunicorn --workers ${WSGI_WORKERS} \
         --bind ${CONTAINER_HOST}:${CONTAINER_PORT} \
         wis2box_auth.app:app
 
+## TODO: The combination of `set -e` and `exec` means that the `echo` statement below will never be executed
 echo "END /auth-entrypoint.sh"

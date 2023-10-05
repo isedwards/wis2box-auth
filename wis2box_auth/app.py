@@ -97,6 +97,22 @@ def authorize():
         return get_response(401, msg)
 
 
+@app.route('/dev')
+def dev():
+    user_user = request.headers.get('X-User', 'Unknown User')
+    user_email = request.headers.get('X-Email', 'Unknown Email')
+    user_groups = request.headers.get('X-Groups', 'Unknown Groups')
+    
+    response_str = (
+        f"User: {user_user}\n"
+        f"Email: {user_email}\n"
+        f"Use Groups: {user_groups}"
+    )
+    #response_str = "\n".join([f"{k}: {v}" for k, v in request.headers.items()])
+    # return jsonify(data), 200
+    return get_response(200, response_str)
+
+
 @app.route('/add_token', methods=['POST'])
 def add_token():
     """Add access token for a topic"""
