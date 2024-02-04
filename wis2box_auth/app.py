@@ -37,8 +37,13 @@ from wis2box_auth.log import setup_logger
 LOGGER = logging.getLogger(__name__)
 app = Flask(__name__)
 
-# WIP FIXME: client secret is currently hardcoded in client_secrets.json
-app.config['OIDC_CLIENT_SECRETS'] = 'wis2box_auth/client_secrets.json'
+app.config['OIDC_CLIENT_SECRETS'] = {
+    "web": {
+        "client_id": "wis2box",
+        "client_secret": os.environ['OIDC_CLIENT_SECRET'],
+        "issuer": os.environ['OIDC_ISSUER'],
+    }
+}
 oidc = OpenIDConnect(app, prefix='/oidc')
 
 LOGLEVEL = os.environ.get('WIS2BOX_LOGGING_LOGLEVEL', 'ERROR')
